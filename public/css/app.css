@@ -1,0 +1,9 @@
+.product {
+    margin-top: 10vh;
+    padding: 0px 60px;
+}
+
+.bre {
+    background-color: 'red';
+    clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%);
+}
