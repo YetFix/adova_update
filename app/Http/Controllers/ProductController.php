@@ -32,7 +32,18 @@ class ProductController extends Controller
         ]);
         $product = new Product();
         $subcategory = Subcategory::find($request->subcategory);
-        
+        $images= array();
+       if($files= $request->file('products')){
+            foreach($files as $file){
+                $image_name=md5(rand(10,10000));
+                $ext=strtolower($file->getClientOriginalExtension());
+                $image_full_name=$image_name.'.'.$ext;
+                $upload_path='product_images/';
+                $image_url=$upload_path.$image_full_name;
+                $file->move($upload_path,$image_full_name);
+                $images[]=$image_url;
+            }
+       }
         if ($pdf = $request->file('pdf')) {
             $destinationPath = public_path('pdfs/');;
             $pdfPath = date('YmdHis') . "." . $pdf->getClientOriginalExtension();
@@ -55,6 +66,7 @@ class ProductController extends Controller
         $product->storage=$request->storage;
         $product->supply=$request->supply;
         $product->desc=$request->desc;
+        $product->images=implode('|',$images);
         $subcategory->products()->save($product);
         
         Toastr::success('Added New Product Succesfully ', 'Product', ["positionClass" => "toast-top-right"]);

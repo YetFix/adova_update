@@ -61,9 +61,32 @@
                                             <label for="exampleInputEmail1">Product Name</label>
                                             <input type="text" class="form-control" id="name"
                                                 aria-describedby="emailHelp" name="name"
-                                                placeholder="Enter category name">
+                                                placeholder="Enter product name">
                                         </div>
+                                        <div class="form-group">
+                                            <label for="price">Product Price</label>
+                                            <input type="number" class="form-control" id="price"
+                                                aria-describedby="emailHelp" name="price"
+                                                placeholder="Enter product price">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="subcategory">Select Product Type</label>
+                                            <select class="form-control" id="type" name="type" required>
+                                               
+                                                <option value="recent">
+                                                    Recent
+                                                </option>
 
+                                                <option value="upcoming">
+                                                    Upcoming
+                                                </option>
+
+                                                <option value="regular">
+                                                    Regular
+                                                </option>
+                                              
+                                            </select>
+                                        </div>
                                         <div class="form-group">
                                             <label for="subcategory">Select Product Sub Category</label>
                                             <select class="form-control" id="subcategory" name="subcategory" required>
@@ -130,7 +153,7 @@
                                             <textarea name="supply" id="supply" cols="30" rows="4"></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Safety</label><br>
+                                            <label for="safety">Safety</label><br>
 
                                             <textarea name="safety" id="safety" cols="30" rows="4"></textarea>
                                         </div>
@@ -138,11 +161,13 @@
                                             <label for="exampleInputEmail1">Description</label><br>
                                             <textarea name="desc" id="desc" cols="30" rows="4"></textarea>
                                         </div>
-
+                                        <div class="form-group">
+                                            <label for="pdf">Product Images</label>
+                                            <input type="file" class="form-control" id="products" aria-describedby="products"
+                                                name="products" placeholder="Enter Product images">
+                                        </div>
                                     </div>
                                 </div>
-
-
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
 
@@ -177,3 +202,12 @@
 <!-- ============================================================== -->
 <!-- End Page wrapper  -->
 @endsection
+@push('custom-scripts')
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#compostion' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+@endpush
