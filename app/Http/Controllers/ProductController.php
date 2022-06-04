@@ -158,14 +158,18 @@ class ProductController extends Controller
         Toastr::success('Product updated Succesfully ', 'Product', ["positionClass" => "toast-top-right"]);
         return redirect('/products');
     }
-    function delete(Request $request,$id){
+    function delete($id){
            $product= Product::find($id);
-         
+           if($product->images!=null){
+                foreach(explode('|',$product->images) as $img ){
+                    if(File::exists(public_path($img))) {
+                        unlink(public_path($img));
+                    }
+                }
+           }
            if($product->pdf!=null){
             if(File::exists(public_path('pdfs').'/'.$product->pdf)) {
-              
                 unlink(public_path('pdfs').'/'.$product->pdf);
-                
             }
            }
         Product::find($id)->delete();

@@ -164,7 +164,7 @@
                                         <div class="form-group">
                                             <label for="pdf">Product Images</label>
                                             <input type="file" class="form-control" id="products" aria-describedby="products"
-                                                name="products" placeholder="Enter Product images">
+                                                name="products[]" multiple placeholder="Enter Product images">
                                         </div>
                                     </div>
                                 </div>

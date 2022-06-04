@@ -44,6 +44,7 @@
                                     <th class="border-top-0">#</th>
                                     <th class="border-top-0">Product Name</th>
                                     <th class="border-top-0">Product Category</th>
+                                    <th class="border-top-0">Product Images</th>
                                     <th class="border-top-0">Actions</th>
                                 </tr>
                             </thead>
@@ -54,6 +55,11 @@
                                     <td>{{$i++}}</td>
                                     <td>{{$product->name}}</td>
                                     <td>{{$product->subcategory->category->name}}</td>
+                                    <td>
+                                        @foreach (explode('|',$product->images) as $image )
+                                            <img src="{{URL::to($image)}}" style="width: 60px;height:60px;" alt="">
+                                        @endforeach
+                                    </td>
                                     <td>
                                         <a class="btn btn-primary" href="{{route('pro.view',$product->id)}}">View</a>
                                         <a class="btn btn-primary" href="{{route('pro.edit',$product->id)}}">Edit</a>

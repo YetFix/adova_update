@@ -34,13 +34,7 @@
                          <span class="hide-menu">Products</span>
                      </a>
                  </li>
-                   <li class="sidebar-item">
-                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/newproducts"
-                         aria-expanded="false">
-                         <i class="fas fa-address-book"></i>
-                         <span class="hide-menu">Upcoming Products</span>
-                     </a>
-                 </li>
+                   
                  <!-- <li class="sidebar-item">
                      <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/types" aria-expanded="false">
                          <i class="fa fa-table" aria-hidden="true"></i>
