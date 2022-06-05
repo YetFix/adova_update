@@ -20,13 +20,7 @@
                          <span class="hide-menu">Categories</span>
                      </a>
                  </li>
-                 <li class="sidebar-item">
-                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/subcategories"
-                         aria-expanded="false">
-                         <i class="fa fa-table" aria-hidden="true"></i>
-                         <span class="hide-menu">Sub Categories</span>
-                     </a>
-                 </li>
+                
                  <li class="sidebar-item">
                      <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/products"
                          aria-expanded="false">

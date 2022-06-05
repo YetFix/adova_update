@@ -1,139 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
+@push('css')
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+  <!-- Libraries Stylesheet -->
+  <link href="{{asset('frontend/lib/animate/animate.min.css')}}" rel="stylesheet">
+ <!-- Libraries Stylesheet -->
 
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="{{asset('frontend/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+  <!-- Customized Bootstrap Stylesheet -->
+  <link href="{{asset('frontend/css/style.css')}}" rel="stylesheet">
+@endpush
 
-    <title>Adova Pharmaceutical-Home</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-
-    <!-- Favicons -->
-    <link rel="shortcut icon" href="{{ asset('assets/img/fav.png') }}">
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/vendor/icofont/icofont.min.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/vendor/owl.carousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/vendor/venobox/venobox.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/vendor/aos/aos.css')}}" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-    <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
-
-</head>
-
-<body>
-
-    <!-- ======= Top Bar ======= -->
-    <div id="topbar" class="d-none d-lg-flex align-items-center fixed-top">
-        <div class="container d-flex">
-            <div class="contact-info mr-auto">
-                <i class="icofont-envelope"></i> <a
-                    href="mailto:adovapharma.bd16@gmail.com">adovapharma.bd16@gmail.com</a>
-                <i class="icofont-phone"></i> +8801812-268837
-            </div>
-            <div class="social-links">
-               
-                <a href="https://www.facebook.com/adovapharma/"  target="_blank" class="facebook">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
-                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
-                    </svg>
-                </a>
-                 
-                <a href="https://www.linkedin.com/company/adova-pharmaceuticals-ltd/" target="_blank" class="linkedin">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
-                        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
-                      </svg>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top">
-        <div class="container d-flex align-items-center">
-            <a href="/" class="logo mr-auto"><img src="{{asset('image3.png')}}" alt=""></a>
-
-            <nav class="nav-menu d-none d-lg-block">
-                <ul>
-
-                    <li class="drop-down active"><a href="#about">About</a>
-                        <ul>
-                            <li><a href="#about">What we do</a></li>
-                            <li><a href="#team">Who we are</a></li>
-
-                        </ul>
-                    </li>
-                    @if(isset($settings[0]))
-                    @if($settings[0]->local==1)
-                    <li class="drop-down"><a href="#">Our Products</a>
-                        <ul>
-                            @if(isset($categories))
-                            @foreach($categories as $category)
-                            @if($category->type==='local')
-                            <li class="drop-down"><a href="#">{{$category->name}}</a>
-                                <ul>
-                                    @foreach($category->subcategories as $subcategory)
-                                    <li><a
-                                            href="{{route('pro.showBySubCat',$subcategory->id)}}">{{$subcategory->name}}</a>
-                                    </li>
-                                    @endforeach
-                                </ul>
-
-                            </li>
-                            @endif
-                            @endforeach
-                            @endif
-                        </ul>
-                    </li>
-                    @endif
-                    @endif
-                    @if(isset($settings[0]))
-                    @if($settings[0]->import==1)
-                    <li class="drop-down"><a href="#">Imported Products</a>
-                        <ul>
-                            @foreach($categories as $category)
-                            @if($category->type==='import')
-                            <li class="drop-down"><a href="#">{{$category->name}}</a>
-                                <ul>
-                                    @foreach($category->subcategories as $subcategory)
-                                    <li><a
-                                            href="{{route('pro.showBySubCat',$subcategory->id)}}">{{$subcategory->name}}</a>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                            @endif
-                            @endforeach
-                        </ul>
-                    </li>
-                    @endif
-                    @endif
-                    <li><a href="#team">Management</a></li>
-                    <li><a href="#contact">Contact</a></li>
-
-                </ul>
-            </nav><!-- .nav-menu -->
-
-        </div>
-    </header><!-- End Header -->
-
-    <!-- ======= slider Section ======= -->
-    <br/>
-    <br/>
-    <br/>
-    <br>
-    <br>
-    <br>
-    {{-- <section class="portfolio-details"> --}}
+        <br>
+        <br>
+        <br>
+        <br>
         <div style="width: 100%;height:100%">
             <div class="portfolio-details-container">
                 <div class="owl-carousel portfolio-details-carousel">
@@ -145,55 +26,12 @@
                 </div>
             </div>
         </div>
-    {{-- </section><!-- End Slider Details Section --> --}}
 
-    <main id="main">
+@section('content')
 
-        <!-- ======= Featured Services Section ======= -->
-        <section id="featured-services" class="featured-services">
-            <div class="container" data-aos="fade-up">
 
-                <div class="row">
-                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                        <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-                            <div class="icon"><i class="bx bxl-dribbble"></i></div>
-                            <h4 class="title"><a href="">Best Service</a></h4>
-                            <p class="description">We provide best service in Pharmaceutical Sectior in Bangladesh.</p>
-                        </div>
-                    </div>
 
-                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                        <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
-                            <div class="icon"><i class="bx bx-file"></i></div>
-                            <h4 class="title"><a href="">On Demand</a></h4>
-                            <p class="description">Adova pharmaceuticals provides on demand service anytime,anywhere in
-                                Bangladesh.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                        <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
-                            <div class="icon"><i class="bx bx-tachometer"></i></div>
-                            <h4 class="title"><a href="">Client Priority</a></h4>
-                            <p class="description">Customers are our first priority in our Company.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-                        <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
-                            <div class="icon"><i class="bx bx-world"></i></div>
-                            <h4 class="title"><a href="">24/7</a></h4>
-                            <p class="description">We provide 24X7 any service to our customers</p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </section><!-- End Featured Services Section -->
-
-        <!-- ======= About Section ======= -->
-        <section id="about" class="about section-bg">
+  
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
@@ -248,480 +86,64 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center"
-                        data-aos="fade-up" data-aos-delay="100">
-                        <h3>Mission</h3>
-                        <ul>
-                            <li>
-                                <i class="bx bx-store-alt"></i>
-                                <div>
-                                    <p>To provide highest possible standard quality medicine at an affordable price for
-                                        the customer in the country.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="bx bx-images"></i>
-                                <div>
-                                    <p>To reach global market within short span of time</p>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="bx bx-images"></i>
-                                <div>
-                                    <p>To focus R&D extensively by building strategic partnership</p>
-                                </div>
-                            </li>
-                        </ul>
-                        <h4>Vision</h4>
-                        <p>
-                            The vision of Adova Pharmaceuticals is to become a business based global pharmaceutical
-                            company and help animal live healthier by delivering great medicine through innovation.
-                        </p>
-                    </div>
-                    <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="100">
-                         <div class="card">
-                            <div class="card-header">
-                                <ul class="nav nav-tabs justify-content-center" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#home" role="tab">
-                                            New products
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#profile" role="tab">
-                                            </i> News
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-body">
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="home" role="tabpanel">
-                                        @if($upproducts->count()>0)
-                                        @foreach($upproducts as $product)
-                                        <div class="card" style="width:100%; margin-bottom:2px">
-                                            <div style="background-color: #F2F2F2;"
-                                                class="card-header collapsed question border  rounded"
-                                                data-bs-toggle="collapse">
-                                                <p class="pt-2  text-center" data-toggle="collapse"
-                                                    data-target="#demo{{$loop->index}}">
-                                                    {{$product->name}}</p>
-                                            </div>
-
-                                            <div class="card-body collapse" id="demo{{$loop->index}}">
-                                                @if($product->desc)
-                                                <div class="feat">
-                                                    <h5>Description</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->desc}}</p>
-                                                    </p>
-                                                </div>
-                                                @endif
-                                                <div class="feat">
-                                                    @if($product->compostion)
-                                                    <h5>Composition</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->compostion}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->indication)
-                                                    <h5>Indication</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->indication}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->dosage)
-                                                    <h5>Dosage & Administration</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->dosage}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->contraindication)
-                                                    <h5>Contraindication</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->contraindication}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->interaction)
-                                                    <h5>Interaction</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->interaction}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->precaution)
-                                                    <h5>Precaution</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p style="color:red"> {{$product->precaution}}
-                                                    </p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->effects)
-                                                    <h5>Effects</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p style="color:red"> {{$product->effects}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->withdral)
-                                                    <h5>Withdrawal</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->withdral}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->safety)
-                                                    <h5>Safety</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->safety}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->storage)
-                                                    <h5>Storage</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->storage}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->supply)
-                                                    <h5>Supply</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->supply}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->others)
-                                                    <h5>Others</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->others}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="mx-auto text-center">
-                                                    <a class="btn btn-lg btn-success"
-                                                        href="{{route('npro.down',$product->id)}}">Download
-                                                        as
-                                                        PDF</a>
-                                                    <a class="btn btn-lg btn-warning"
-                                                        href="{{route('npro.view',$product->id)}}">View
-                                                        as
-                                                        PDF</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endforeach
-                                        <div class="container mt-2">
-                                            <div class="row mx-auto">
-                                                <div class="col">
-                                                    {{ $upproducts->links('pagination::bootstrap-4') }}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        @else
-
-                                        <div class="card">
-                                            <div class="cardheader">
-                                                <h4 class="pl-3">No Products Found</h3>
-                                            </div>
-                                        </div>
-
-                                        @endif
-
-
-                                    </div>
-                                    <div class="tab-pane" id="profile" role="tabpanel">
-                                        @if($upproducts->count()>0)
-                                        @foreach($upproducts as $product)
-                                        <div class="card" style="width:100% ; margin-bottom:2px">
-                                            <div class="card-header collapsed question border rounded"
-                                                style="background-color :#F5F5F5;" data-bs-toggle="collapse">
-                                                <p class=" text-center pt-2" data-toggle="collapse"
-                                                    data-target="#demo{{$loop->index}}">
-                                                    {{$product->name}}</p>
-                                            </div>
-
-                                            <div class="card-body collapse" id="demo{{$loop->index}}">
-                                                @if($product->desc)
-                                                <div class="feat">
-                                                    <h5>Description</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->desc}}</p>
-                                                    </p>
-                                                </div>
-                                                @endif
-                                                <div class="feat">
-                                                    @if($product->compostion)
-                                                    <h5>Composition</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->compostion}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->indication)
-                                                    <h5>Indication</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->indication}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->dosage)
-                                                    <h5>Dosage & Administration</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->dosage}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->contraindication)
-                                                    <h5>Contraindication</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->contraindication}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->interaction)
-                                                    <h5>Interaction</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->interaction}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->precaution)
-                                                    <h5>Precaution</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p style="color:red"> {{$product->precaution}}
-                                                    </p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->effects)
-                                                    <h5>Effects</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p style="color:red"> {{$product->effects}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->withdral)
-                                                    <h5>Withdrawal</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->withdral}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->safety)
-                                                    <h5>Safety</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->safety}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->storage)
-                                                    <h5>Storage</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->storage}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->supply)
-                                                    <h5>Supply</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->supply}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="feat">
-                                                    @if($product->others)
-                                                    <h5>Others</h5>
-                                                    <hr>
-                                                    <p>
-                                                    <p> {{$product->others}}</p>
-                                                    </p>
-                                                    @endif
-                                                </div>
-                                                <div class="mx-auto text-center">
-                                                    <a class="btn btn-lg btn-success"
-                                                        href="{{route('pro.down',$product->id)}}">Download
-                                                        as
-                                                        PDF</a>
-                                                    <a class="btn btn-lg btn-warning"
-                                                        href="{{route('pro.view',$product->id)}}">View
-                                                        as
-                                                        PDF</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endforeach
-                                        <div class="container mt-2">
-                                            <div class="row mx-auto">
-                                                <div class="col">
-                                                    {{ $upproducts->links('pagination::bootstrap-4') }}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        @else
-
-                                        <div class="card">
-                                            <div class="cardheader">
-                                                <h4 class="pl-3">No Products Found</h3>
-                                            </div>
-                                        </div>
-
-                                        @endif
-
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="100">
-                        <img src="{{asset('assets/img/about5.jpg')}}" class="img-fluid" alt="">
-                    </div>
-                    <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center"
-                        data-aos="fade-up" data-aos-delay="100">
-                        <h3>What We do</h3>
-
-                        <p>Adova Pharmaceuticals Limited produces nutritional products, antibiotics, disinfectants,
-                            analgesic, and antihistamines at its own factory at Ashulia, Dhaka and distributes them
-                            nationwide. The products are made in a controlled environment that ensures highest level of
-                            quality. Adova Pharmaceuticals Limited also markets pond management products, medicinal feed
-                            additives and other pharmaceuticals.</p>
-                        <p> APL comprises its vision, mission, and values up on which our performance is based. We are
-                            proud of all our employees who are very much dedicated to make an active contribution to the
-                            company.
-                            Animal husbandry is our biggest assets and their goal is to drive our business forward.
-                            Their motivation is enhanced through performance management, wellness, benefit, compensation
-                            and training. Shared values, beliefs, norms and behaviors enable our people to achieve the
-                            goal with the right leadership.
-                        </p>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center"
-                        data-aos="fade-up" data-aos-delay="100">
-                        <h3>History & Growth</h3>
-                        <p>Adova is the trend setter in different business sectors in Bangladesh. In future Adova will
-                            one of the leading group of companies in the country which includes business of health care,
-                            pharmaceuticals, nutrition, financial etc. However the core of Adova Company lies in health
-                            care services. 4-5 years back there was no comprehensive treatment facilities in the
-                            country.</p>
-                        <p>It was very difficult to have the medicine for a distressed patients from a remote area in
-                            Bangladesh.
-                            The lack of quality treatment and the sufferings of the patients inspired the visionary
-                            leader Md. Labu Mia to set a new trend in treatment for animal husbandry. As a result Adova
-                            Pharmaceuticals Limited was established with the belief that a cure is the result of an
-                            accurate diagnosis.</p>
-                    </div>
-                    <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="100">
-                        <img src="{{asset('assets/img/about6.jpg')}}" class="img-fluid" alt="">
-                    </div>
-                </div>
+               
             </div>
-        </section><!-- End About Section -->
+      
 
 
         <!-- ======= Counts Section ======= -->
-        <section id="counts" class="counts">
-            <div class="container" data-aos="fade-up">
-
-                <div class="row">
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="count-box">
-                            <i class="icofont-simple-smile"></i>
-                            <span data-toggle="counter-up">102</span>
-                            <p>Happy Clients</p>
+       
+            <div class="container-fluid py-5">
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+                <span class="bg-secondary pr-3">RECENTLY SHIPPED ITEMS</span></h2>
+            <div class="row px-xl-5">
+                <div class="col">
+                    <div class="owl-carousel related-carousel">
+                        @foreach($products as $key=>$product)
+                        <div class="product-item bg-light" onclick="location.href='/f/products/{{$product->id}}';" style="cursor:pointer;">
+                            <?php  $property_images = explode('|',$product->images);?>
+                            <div class="product-img position-relative overflow-hidden">
+                            <img src="{{ asset(''. $property_images[0]) }}" class="img-fluid" style="height:300px;" alt="">  
+                                
+                            </div>
+                            <div class="text-center py-4">
+                                <a class="h6 text-decoration-none text-truncate" href="">{{$product->name}}</a>
+                            
+                            </div>
                         </div>
+                        @endforeach
                     </div>
-
-                    <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
-                        <div class="count-box">
-                            <i class="icofont-document-folder"></i>
-                            <span data-toggle="counter-up">15</span>
-                            <p>Projects</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-                        <div class="count-box">
-                            <i class="icofont-live-support"></i>
-                            <span data-toggle="counter-up">1,463</span>
-                            <p>Hours Of Support</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-                        <div class="count-box">
-                            <i class="icofont-users-alt-5"></i>
-                            <span data-toggle="counter-up">150</span>
-                            <p>Hard Workers</p>
-                        </div>
-                    </div>
-
                 </div>
-
             </div>
-        </section><!-- End Counts Section -->
+            </div>
+       
+
+      
+            <div class="container-fluid py-5">
+                <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+                <span class="bg-secondary pr-3">MANUFACTURING SECTORS</span></h2>
+                <div class="row px-xl-5">
+                    <div class="col">
+                        <div class="owl-carousel related-carousel">
+                            @foreach($categories as $key=>$category)
+                            <div class="product-item bg-light" onclick="location.href='/products/category/{{$category->id}}';" style="cursor:pointer;">
+                               
+                                <div class="product-img position-relative overflow-hidden">
+                                
+                                <img src="{{URL::asset('categoriesimg')}}/{{$category->image}}"  class="img-fluid" style="height:300px;" alt=""/>
+                                </div>
+                                <div class="text-center py-4">
+                                    <a class="h6 text-decoration-none text-truncate" href="">{{$category->name}}</a>
+                                    
+                                
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
 
 
         <!-- ======= Team Section ======= -->
@@ -741,7 +163,7 @@
                     <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                         <div class="member">
                             <div class="member-img">
-                                <img src="https://via.placeholder.com/600" class="img-fluid" alt="">
+                                <img src="https://via.placeholder.com/600" class="img-fluid" style="height:120px" alt="">
                                 <div class="social">
                                     
                                     <a href="https://www.facebook.com/adovapharma/" target="_blank"><i class="icofont-facebook"></i></a>
@@ -759,8 +181,8 @@
                     @else
                     <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
                         <div class="member">
-                            <div class="member-img">
-                                <img src="{{URL::asset('teamimg')}}/{{$team->image}}" class="img-fluid" alt="">
+                            <div class="member-img mx-auto">
+                                <img src="{{URL::asset('teamimg')}}/{{$team->image}}"  style="height:180px;width:250px;" alt="">
                                 <div class="social">
                                     <a href="#"><i class="icofont-twitter"></i></a>
                                     <a href="#"><i class="icofont-facebook"></i></a>
@@ -878,119 +300,12 @@
 
             </div>
         </section><!-- End Contact Section -->
-
-    </main><!-- End #main -->
-
-    <!-- ======= Footer ======= -->
-    <footer id="footer">
-
-        <div class="footer-newsletter">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <h4>Join Our Newsletter</h4>
-                        <p>To Get Latest Updates</p>
-                        <form action="/news" method="post">
-                            @csrf
-                            <input type="email" name="email" required><input type="submit" value="Subscribe">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-top">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-lg-3 col-md-6 footer-contact">
-                        <h3><span>Adova Pharmaceuticals Ltd</span>.</h3>
-
-                        <p>
-                            105, Boro Rangamatia<br>
-                            Durgapur, Asulia Dhaka<br>
-                            Bangladesh <br><br>
-                            <strong>Phone:</strong> +88 01812268837<br>
-                            <strong>Email:</strong> adovapharma.bd16@gmail.com<br>
-                        </p>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 footer-links">
-                        <h4>Useful Links</h4>
-                        <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 footer-links">
-                        <h4>Our Services</h4>
-                        <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-
-                        </ul>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 footer-links">
-                        <h4>Our Social Networks</h4>
-                        <div class="social-links mt-3">
-                           
-                            <a href="https://www.facebook.com/adovapharma/"  target="_blank" class="facebook">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
-                                    <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
-                                </svg>
-                            </a>
-                             
-                            <a href="https://www.linkedin.com/company/adova-pharmaceuticals-ltd/" target="_blank" class="linkedin">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
-                                    <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
-                                  </svg>
-                            </a>
-                           
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="container py-4">
-            <div class="copyright">
-                &copy; Copyright <strong><span>Adova Pharmaceuticals Ltd.</span></strong>. All Rights Reserved
-            </div>
-
-            <div class="credits">
-                Designed and Developed by <a target="_blank" href="https://yetfix.com/">YetFix Ltd.</a>
-            </div>
-        </div>
-    </footer><!-- End Footer -->
-
-    <div id="preloader"></div>
-    <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
-
-    <!-- Vendor JS Files -->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-    <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
-    <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-    <script src="assets/vendor/counterup/counterup.min.js"></script>
-    <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/venobox/venobox.min.js"></script>
-    <script src="assets/vendor/aos/aos.js"></script>
-
-    <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
-    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
-    {!! Toastr::message() !!}
-
-</body>
-
-</html>
+@endsection
+@push('js')
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{{asset('frontend/lib/easing/easing.min.js')}}"></script>
+    <script src="{{asset('frontend/lib/owlcarousel/owl.carousel.min.js')}}"></script>
+    <!-- Template Javascript -->
+    <script src="{{asset('frontend/js/main.js')}}"></script>
+@endpush

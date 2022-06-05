@@ -39,7 +39,7 @@
                     <h3 class="box-title">New Category</h3>
                     <div class="table-responsive">
                         <table class="table text-nowrap">
-                            <form action="{{route('cat.update',$category->id)}}" method="POST">
+                            <form action="{{route('cat.update',$category->id)}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
@@ -49,16 +49,13 @@
                                         required>
 
                                 </div>
+                               
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Select Category Type</label>
-                                    <select class="form-control" id="select" name="type">
-                                        <option @if($category->type==='local')
-                                            selected="selected"
-                                            @endif>Local</option>
-                                        <option @if($category->type==='Export')
-                                            selected="selected"
-                                            @endif>Export</option>
-                                    </select>
+                                    <label for="slider">Category Image</label><br />
+                                    <p class="alert alert-danger" role="alert">* For Best Quality image size should be
+                                        1200X695 </p>
+                                    <input type="file" class="form-control-file" id="cat" name="cat">
+
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </form>

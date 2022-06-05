@@ -67,13 +67,43 @@
 
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Select Product Sub Category</label>
-                                            <select class="form-control" id="select" name="subcategory" required>
-                                                @foreach($subcategories as $subcategory)
-                                                <option value="{{$subcategory->id}}" @if($subcategory->
-                                                    id===$product->subcategory_id)?
+                                            <label for="price">Product Price</label>
+                                            <input type="number" class="form-control" id="price"
+                                                aria-describedby="emailHelp" name="price"
+                                                placeholder="Enter product price" value="{{$product->price}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="type">Select Product Type</label>
+                                            <select class="form-control" id="type" name="type" required>
+                                               
+                                                <option value="recent" @if($product->type==='recent')?
                                                     selected
-                                                    @endif>{{$subcategory->name}}-{{$subcategory->category->type}}
+                                                    @endif>
+                                                    Recent
+                                                </option>
+
+                                                <option value="upcoming" @if($product->type==='upcoming')?
+                                                    selected
+                                                    @endif>
+                                                    Upcoming
+                                                </option>
+
+                                                <option value="regular" @if($product->type==='regular')?
+                                                    selected
+                                                    @endif>
+                                                    Regular
+                                                </option>
+                                              
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleFormControlSelect1">Select Product Category</label>
+                                            <select class="form-control" id="select" name="category" required>
+                                                @foreach($categories as $category)
+                                                <option value="{{$category->id}}" @if($category->
+                                                    id===$product->category_id)?
+                                                    selected
+                                                    @endif>{{$category->name}}
                                                 </option>
                                                 @endforeach
                                             </select>

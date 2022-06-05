@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Auth::routes([
-    //'register' => false, // Registration Routes...
+    'register' => true, // Registration Routes...
     'reset' => false, // Password Reset Routes...
     'verify' => false, // Email Verification Routes...
   ]);
@@ -27,13 +27,47 @@ Auth::routes([
 Route::get('/', function () {
     $settings= Settings::get();
     $categories= Category::get();
-    $products=Product::get()->count();
     $sliders = Slider::get();
     $teams = Team::get();
-    $upproducts=NewProduct::paginate(10);
-    return view('welcome',compact('sliders','categories','products','settings','teams','upproducts'));
+   
+    $products=Product::where('type','=','recent')->paginate(5);
+    return view('welcome',compact('sliders','categories','products','settings','teams','products'));
+});
+Route::get('/f/contact', function(){
+  $settings= Settings::get();
+  $categories= Category::get();
+  return view('contact',compact('settings','categories'));
+});
+Route::get('/f/gallery', function(){
+  $settings= Settings::get();
+  $categories= Category::get();
+  $sliders = Slider::get();
+  $products = Product::get();
+  return view('gallery',compact('settings','categories','products','sliders'));
+});
+Route::get('/f/team', function(){
+  $settings= Settings::get();
+  $categories= Category::get();
+  $teams = Team::get();
+ 
+  return view('team',compact('settings','categories','teams',));
+});
+Route::get('/f/who-we-are', function(){
+  $settings= Settings::get();
+  $categories= Category::get();
+  $teams = Team::get();
+  return view('who',compact('settings','categories','teams'));
+});
+Route::get('/f/what-we-do', function(){
+  $settings= Settings::get();
+  $categories= Category::get();
+  return view('what',compact('settings','categories'));
 });
 
+Route::get('/f/products', [App\Http\Controllers\ShopController::class, 'shop'])->name('f.product');
+Route::get('/f/products/{id}', [App\Http\Controllers\ShopController::class, 'shopById'])->name('f.product.single');
+Route::get('/products/category/{id}', [App\Http\Controllers\ShopController::class, 'productByCateId'])->name('product.cat');
+Route::get('/products/type/{type}', [App\Http\Controllers\ShopController::class, 'productsByType'])->name('product.type');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('logout', [App\Http\Controllers\HomeController::class, 'logout']);
 //admin routes

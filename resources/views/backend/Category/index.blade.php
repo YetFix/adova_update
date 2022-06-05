@@ -23,11 +23,7 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
+            
             <!-- ============================================================== -->
             <div class="container-fluid">
                 <!-- ============================================================== -->
@@ -43,7 +39,8 @@
                                     <tr>
                                         <th class="border-top-0">#</th>
                                         <th class="border-top-0">Category Name</th>
-                                        <th class="border-top-0">Category Type</th>
+                                        <th class="border-top-0">Category Image</th>
+                                       
                                         <th class="border-top-0">Actions</th>
                                     </tr>
                                 </thead>
@@ -53,7 +50,8 @@
                                 <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$category->name}}</td>
-                                        <td>{{$category->type}}</td>
+                                        <td><img src="{{URL::asset('categoriesimg')}}/{{$category->image}}" style="max-width:70px" alt=""/></td>
+                                      
                                         <td>
                                         <a class="btn btn-primary" href="{{route('cat.edit',$category->id)}}">Edit</a>
                                         <a class="btn btn-danger" href="{{route('cat.del',$category->id)}}">Delete</a>

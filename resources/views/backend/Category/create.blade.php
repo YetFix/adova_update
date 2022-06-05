@@ -39,21 +39,21 @@
                     <h3 class="box-title">New Category</h3>
                     <div class="table-responsive">
                         <table class="table text-nowrap">
-                            <form action="{{route('cat.store')}}" method="POST">
+                            <form action="{{route('cat.store')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Category Name</label>
                                     <input type="text" class="form-control" id="name" aria-describedby="emailHelp"
                                         name="name" placeholder="Enter category name" required>
                                 </div>
+                                
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Select Category Type</label>
-                                    <select class="form-control" id="select" name="type">
-                                        <option>local</option>
-                                        <option>import</option>
-                                    </select>
-                                </div>
+                                    <label for="slider">Category Image</label><br />
+                                    <p class="alert alert-danger" role="alert">* For Best Quality image size should be
+                                        1200X695 </p>
+                                    <input type="file" class="form-control-file" id="cat" name="cat" required>
 
+                                </div>
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>

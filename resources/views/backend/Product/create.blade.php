@@ -70,7 +70,7 @@
                                                 placeholder="Enter product price">
                                         </div>
                                         <div class="form-group">
-                                            <label for="subcategory">Select Product Type</label>
+                                            <label for="type">Select Product Type</label>
                                             <select class="form-control" id="type" name="type" required>
                                                
                                                 <option value="recent">
@@ -88,11 +88,11 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="subcategory">Select Product Sub Category</label>
-                                            <select class="form-control" id="subcategory" name="subcategory" required>
-                                                @foreach($subcategories as $subcategory)
-                                                <option value="{{$subcategory->id}}">
-                                                    {{$subcategory->name}}- {{$subcategory->category->type}}
+                                            <label for="category">Select Product Category</label>
+                                            <select class="form-control" id="category" name="category" required>
+                                                @foreach($categories as $category)
+                                                <option value="{{$category->id}}">
+                                                    {{$category->name}}
                                                 </option>
                                                 @endforeach
                                             </select>

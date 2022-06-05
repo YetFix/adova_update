@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
@@ -23,14 +24,30 @@ class CategoryController extends Controller
     function store(Request $request){
         $request->validate([
             'name'=>'required',
-            'type'=>'required'
+           
+            'cat' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
+        if ($request->hasFile('cat')) {
+          
+            $image = $request->file('cat');
+            $destinationPath = public_path('categoriesimg/');
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            
+            Category::create([
+                'name'=>$request->name,
+               
+                'image'=>$profileImage,
+            ]);
 
+        }else{
+            Category::create([
+                'name'=>$request->name,
+                
+            ]);
+        }
 
-        Category::create([
-            'name'=>$request->name,
-            'type'=>$request->type
-        ]);
+       
         Toastr::success('Added New Category Succesfully ', 'Slider', ["positionClass" => "toast-top-right"]);
         return redirect('/categories');
     }
@@ -41,19 +58,47 @@ class CategoryController extends Controller
     function update(Request $request,$id){
         $request->validate([
             'name'=>'required',
-            'type'=>'required'
+          
+            
         ]);
-        Category::where('id',$id)
-        ->update([
-            'name'=>$request->name,
-            'type'=>$request->type
-        ]);
-        Toastr::success('Category updated Succesfully ', 'Slider', ["positionClass" => "toast-top-right"]);
+
+        if($request->hasFile('cat')){
+            $image = $request->file('cat');
+            $category= Category::find($id);
+           
+            if(File::exists(public_path('categoriesimg').'/'.$category->image)) {
+                unlink(public_path('categoriesimg').'/'.$category->image);
+            }
+            $image = $request->file('cat');
+            $destinationPath = public_path('categoriesimg/');
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            
+            Category::where('id',$id)->update([
+                'name'=>$request->name,
+               
+                'image'=>$profileImage,
+            ]);
+        }else{
+            $category = Category::find($id);
+            Category::where('id',$id)->update([
+                'name'=>$request->name,
+                'image'=>$category->image,
+              
+            ]);
+        }
+      
+        Toastr::success('Category updated Succesfully ', 'Category', ["positionClass" => "toast-top-right"]);
         return redirect('/categories');
     }
     function delete(Request $request,$id){
-        Category::find($id)->delete();
-        Toastr::success('Category deleted Succesfully ', 'Slider', ["positionClass" => "toast-top-right"]);
+        $category= Category::find($id);
+       
+        if(File::exists(public_path('categoriesimg').'/'.$category->image)) {
+            unlink(public_path('categoriesimg').'/'.$category->image);
+        }
+        $category->delete();
+        Toastr::success('Category deleted Succesfully ', 'Category', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
 }

@@ -54,7 +54,7 @@
                                 <tr>
                                     <td>{{$i++}}</td>
                                     <td>{{$product->name}}</td>
-                                    <td>{{$product->subcategory->category->name}}</td>
+                                    <td>{{$product->category->name}}</td>
                                     <td>
                                         @foreach (explode('|',$product->images) as $image )
                                             <img src="{{URL::to($image)}}" style="width: 60px;height:60px;" alt="">

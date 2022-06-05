@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('pdf')->nullable();
+            $table->string('price')->nullable();
             $table->text('compostion')->nullable();
             $table->text('indication')->nullable();
             $table->text('dosage')->nullable();
@@ -31,9 +32,9 @@ class CreateProductsTable extends Migration
             $table->text('safety')->nullable();
             $table->text('desc')->nullable();
             $table->text('others')->nullable();
-            $table->bigInteger('subcategory_id')->unsigned();
+            $table->bigInteger('category_id')->unsigned();
             $table->timestamps();
-            $table->foreign('subcategory_id')->references('id')->on('subcategories');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

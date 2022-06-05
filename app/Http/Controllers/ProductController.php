@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Settings;
-use App\Models\Subcategory;
+
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -21,17 +21,17 @@ class ProductController extends Controller
 
 
     function create(){
-        $subcategories = Subcategory::get();
-        return view('backend.Product.create',compact('subcategories'));
+        $categories = Category::get();
+        return view('backend.Product.create',compact('categories'));
     }
     function store(Request $request){
-    //    dd($request);
+  
         $request->validate([
             'name'=>'required',
-            'subcategory'=>'required', 
+            'category'=>'required', 
         ]);
         $product = new Product();
-        $subcategory = Subcategory::find($request->subcategory);
+        $category = Category::find($request->category);
         $images= array();
        if($files= $request->file('products')){
             foreach($files as $file){
@@ -66,8 +66,10 @@ class ProductController extends Controller
         $product->storage=$request->storage;
         $product->supply=$request->supply;
         $product->desc=$request->desc;
+        $product->type=$request->type;
+        $product->price=$request->price;
         $product->images=implode('|',$images);
-        $subcategory->products()->save($product);
+        $category->products()->save($product);
         
         Toastr::success('Added New Product Succesfully ', 'Product', ["positionClass" => "toast-top-right"]);
         return redirect('/products');
@@ -91,15 +93,13 @@ class ProductController extends Controller
     function edit(Request $request,$id){
         $product = Product::find($id);
         $categories = Category::get();
-        $subcategories = Subcategory::get();
-        return view('backend.Product.edit',compact('product','categories','subcategories'));
+        return view('backend.Product.edit',compact('product','categories'));
     }
     function update(Request $request,$id){
      
         $request->validate([
             'name'=>'required',
-            'subcategory'=>'required',
-            
+            'category'=>'required',
         ]);
       
         if ($pdf = $request->file('pdf')) {
@@ -117,7 +117,7 @@ class ProductController extends Controller
         ->update([
             'name'=>$request->name,
             'pdf'=>$pdfPath,
-            'subcategory_id'=>$request->subcategory,
+            'category_id'=>$request->category,
             'compostion'=>$request->compostion,
             'indication'=>$request->indication,
             'dosage'=>$request->dosage,
@@ -130,6 +130,8 @@ class ProductController extends Controller
             'storage'=>$request->storage,
             'supply'=>$request->supply,
             'desc'=>$request->desc,
+            'type'=>$request->type,
+            'price'=>$request->price
         ]);
         
         }else{
@@ -137,7 +139,7 @@ class ProductController extends Controller
             Product::where('id',$id)
             ->update([
                 'name'=>$request->name,
-                'subcategory_id'=>$request->subcategory,
+                'category_id'=>$request->category,
                 'compostion'=>$request->compostion,
                 'indication'=>$request->indication,
                 'dosage'=>$request->dosage,
@@ -150,6 +152,8 @@ class ProductController extends Controller
                 'storage'=>$request->storage,
                 'supply'=>$request->supply,
                 'desc'=>$request->desc,
+                'type'=>$request->type,
+                'price'=>$request->price
             ]);
             
         }
